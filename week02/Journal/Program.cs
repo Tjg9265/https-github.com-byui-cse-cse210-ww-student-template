@@ -4,40 +4,42 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World! This is the Journal Project.");
-        Journal journal = new Journal();
-        bool running = true;
-        while(running)
+        Console.WriteLine("Welcome to Your Personal Journal!");
+        Journal myJournal = new Journal();
+        bool keepRunning = true;
+
+        while (keepRunning)
         {
-            Console.WriteLine("\nJournal Menu: ");
-            Console.WriteLine("1. Write a new entry");
-            Console.WriteLine("2. Display the journal");
-            Console.WriteLine("3. Save the journal to a file");
-            Console.WriteLine("4. Load the journal from a file");
-            Console.WriteLine("5. Quit");
-            Console.WriteLine("Choose an option: ");
+            Console.WriteLine("\nJournal Options:");
+            Console.WriteLine("1. Add a new entry");
+            Console.WriteLine("2. Show all entries");
+            Console.WriteLine("3. Save journal to file");
+            Console.WriteLine("4. Load journal from file");
+            Console.WriteLine("5. Exit");
+            Console.Write("Select an option: ");
+            
             string choice = Console.ReadLine();
+
             switch (choice)
             {
                 case "1":
-                    journal.WriteNewEntry();
+                    myJournal.AddEntry();
                     break;
                 case "2":
-                    journal.DisplayJournal();
+                    myJournal.ShowJournal();
                     break;
                 case "3":
-                    journal.SaveJournal();
+                    myJournal.SaveToFile();
                     break;
                 case "4":
-                    journal.LoadJournal();
+                    myJournal.LoadFromFile();
                     break;
                 case "5":
-                    running = false;
+                    keepRunning = false;
                     break;
                 default:
-                    Console.WriteLine("Invalid choice, please try again.");
+                    Console.WriteLine("Invalid choice. Try again.");
                     break;
-
             }
         }
     }

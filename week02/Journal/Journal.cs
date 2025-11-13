@@ -4,65 +4,65 @@ using System.IO;
 
 public class Journal
 {
-    private List<Entry> _entries = new List<Entry>();
-    private List<string> _prompts = new List<string>
+    private List<Entry> _entriesList = new List<Entry>();
+
+    private List<string> _dailyPrompts = new List<string>
     {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
+        "Who inspired you today?",
+        "What brought you joy today?",
+        "How did you feel spiritually today?",
+        "What challenged you the most today?",
+        "If you could change one thing about today, what would it be?"
     };
 
-    public void WriteNewEntry()
+    public void AddEntry()
     {
-        Random random = new Random();
-        string prompt = _prompts[random.Next(_prompts.Count)];
+        Random rng = new Random();
+        string prompt = _dailyPrompts[rng.Next(_dailyPrompts.Count)];
 
         Console.WriteLine($"\nPrompt: {prompt}");
-        Console.Write("Your response: ");
-        string response = Console.ReadLine();
+        Console.Write("Your answer: ");
+        string answer = Console.ReadLine();
 
-        string date = DateTime.Now.ToString("MM/dd/yyyy");
-
-        Entry newEntry = new Entry(date, prompt, response);
-        _entries.Add(newEntry);
+        string currentDate = DateTime.Now.ToString("MM/dd/yyyy");
+        Entry newEntry = new Entry(currentDate, prompt, answer);
+        _entriesList.Add(newEntry);
     }
 
-    public void DisplayJournal()
+    public void ShowJournal()
     {
-        Console.WriteLine("\n--- Journal Entries ---");
-        foreach (Entry entry in _entries)
+        Console.WriteLine("\n--- All Journal Entries ---");
+        foreach (Entry e in _entriesList)
         {
-            entry.Display();
+            e.ShowEntry();
         }
     }
 
-    public void SaveJournal()
+    public void SaveToFile()
     {
-        Console.Write("Enter filename to save to: ");
-        string filename = Console.ReadLine();
+        Console.Write("Enter filename to save journal: ");
+        string fileName = Console.ReadLine();
 
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        using (StreamWriter writer = new StreamWriter(fileName))
         {
-            foreach (Entry entry in _entries)
+            foreach (Entry e in _entriesList)
             {
-                outputFile.WriteLine($"{entry._date}|{entry._prompt}|{entry._response}");
+                writer.WriteLine($"{e._entryDate}|{e._question}|{e._answer}");
             }
         }
 
-        Console.WriteLine("Journal saved successfully!");
+        Console.WriteLine("Journal successfully saved!");
     }
 
-    public void LoadJournal()
+    public void LoadFromFile()
     {
-        Console.Write("Enter filename to load from: ");
-        string filename = Console.ReadLine();
+        Console.Write("Enter filename to load journal: ");
+        string fileName = Console.ReadLine();
 
-        if (File.Exists(filename))
+        if (File.Exists(fileName))
         {
-            string[] lines = File.ReadAllLines(filename);
-            _entries.Clear();
+            _entriesList.Clear();
+            string[] lines = File.ReadAllLines(fileName);
 
             foreach (string line in lines)
             {
@@ -70,11 +70,11 @@ public class Journal
                 if (parts.Length == 3)
                 {
                     Entry loadedEntry = new Entry(parts[0], parts[1], parts[2]);
-                    _entries.Add(loadedEntry);
+                    _entriesList.Add(loadedEntry);
                 }
             }
 
-            Console.WriteLine("Journal loaded successfully!");
+            Console.WriteLine("Journal successfully loaded!");
         }
         else
         {

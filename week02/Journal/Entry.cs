@@ -2,21 +2,21 @@ using System;
 
 public class Entry
 {
-    public string _date;
-    public string _prompt;
-    public string _response;
+    public string _entryDate;
+    public string _question;
+    public string _answer;
 
-    public Entry(string date, string prompt, string response)
+    public Entry(string entryDate, string question, string answer)
     {
-        _date = date;
-        _prompt = prompt;
-        _response = response;
+       _entryDate = entryDate;
+        _question = question;
+        _answer = answer;
     }
 
     public void Display()
     {
-        Console.WriteLine($"\nDate: {_date}");
-        Console.WriteLine($"Prompt: {_prompt}");
-        Console.WriteLine($"Response: {_response}");
+        Console.WriteLine($"\nDate: {_entryDate}");
+        Console.WriteLine($"Prompt: {_question}");
+        Console.WriteLine($"Response: {_answer}");
     }
 }
