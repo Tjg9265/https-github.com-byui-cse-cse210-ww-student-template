@@ -1,3 +1,5 @@
+using System;
+
 public class Word
 {
     private string _text;
@@ -5,29 +7,29 @@ public class Word
 
     public Word(string text)
     {
-        // TODO: store the text and start as not hidden
+        _text = text;
+        _isHidden = false;
     }
 
     public void Hide()
     {
-        // TODO: mark this word as hidden
-    }
-
-    public void Show()
-    {
-        // Optional helper if you ever need to unhide
+        _isHidden = true;
     }
 
     public bool IsHidden()
     {
-        // TODO: return whether the word is hidden
-        return false;
+        return _isHidden;
     }
 
     public string GetDisplayText()
     {
-        // If hidden, later we’ll return "_____"
-        // If not, we’ll return the actual word
-        return "";
+        if (_isHidden)
+        {
+            return new string('_', _text.Length);
+        }
+        else
+        {
+            return _text;
+        }
     }
 }
