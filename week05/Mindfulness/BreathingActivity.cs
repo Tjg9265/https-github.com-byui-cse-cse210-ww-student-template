@@ -1,25 +1,31 @@
+using System;
+
 public class BreathingActivity : Activity
 {
-    public BreathingActivity() 
+    public BreathingActivity()
         : base("Breathing Activity",
-               "This activity helps you relax by guiding your breathing.")
+               "This activity will help you relax by guiding your breathing. Clear your mind and focus on slow, deep breaths.")
     {}
 
     public void Run()
     {
         DisplayStartingMessage();
 
-        int cycleTime = 10;
-        int cycles = _duration / cycleTime;
+        int elapsed = 0;
 
-        for (int i = 0; i < cycles; i++)
+        while (elapsed < _duration)
         {
             Console.Write("Breathe in...");
             ShowCountDown(4);
-            Console.WriteLine();
+            elapsed += 4;
 
-            Console.Write("Now breathe out...");
+            if (elapsed >= _duration) break;
+
+            Console.WriteLine();
+            Console.Write("Breathe out...");
             ShowCountDown(6);
+            elapsed += 6;
+
             Console.WriteLine();
         }
 

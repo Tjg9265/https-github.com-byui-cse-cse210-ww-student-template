@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 public class ReflectingActivity : Activity
 {
     private List<string> _prompts = new List<string>()
@@ -11,31 +14,44 @@ public class ReflectingActivity : Activity
     {
         "Why was this experience meaningful to you?",
         "What did you learn from it?",
-        "How can you apply this in your life now?"
+        "How can you apply this in your life now?",
+        "What made this experience stand out?",
+        "How did it change you?",
     };
 
     public ReflectingActivity()
         : base("Reflecting Activity",
-               "This activity helps you reflect on times of strength.")
+               "This activity will help you reflect on times of strength and resilience in your life.")
     {}
 
     public void Run()
     {
         DisplayStartingMessage();
 
-        var rand = new Random();
+        Random rand = new Random();
         string prompt = _prompts[rand.Next(_prompts.Count)];
-        Console.WriteLine(prompt);
-        ShowSpinner(5);
 
-        int questionTime = 10;
-        int cycles = _duration / questionTime;
+        Console.WriteLine("Consider the following prompt:");
+        Console.WriteLine();
+        Console.WriteLine($"--- {prompt} ---");
+        Console.WriteLine();
+        Console.WriteLine("When you have something in mind, press Enter to continue.");
+        Console.ReadLine();
 
-        for (int i = 0; i < cycles; i++)
+        Console.WriteLine("Now ponder on each of the following questions.");
+        Console.WriteLine("You may begin in:");
+        ShowCountDown(5);
+        Console.Clear();
+
+        int elapsed = 0;
+
+        while (elapsed < _duration)
         {
             string question = _questions[rand.Next(_questions.Count)];
-            Console.WriteLine(question);
-            ShowSpinner(8);
+            Console.WriteLine("> " + question);
+            ShowSpinner(6);
+            Console.WriteLine();
+            elapsed += 6;
         }
 
         DisplayEndingMessage();

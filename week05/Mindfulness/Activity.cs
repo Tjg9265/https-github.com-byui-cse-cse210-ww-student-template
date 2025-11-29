@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+
 public class Activity
 {
     private string _name;
@@ -12,9 +15,13 @@ public class Activity
 
     public void DisplayStartingMessage()
     {
+        Console.Clear();
         Console.WriteLine($"Welcome to the {_name}.");
+        Console.WriteLine();
         Console.WriteLine(_description);
+        Console.WriteLine();
         Console.Write("How long (in seconds) would you like the activity to last? ");
+
         _duration = int.Parse(Console.ReadLine());
         Console.Clear();
         Console.WriteLine("Get ready...");
@@ -23,24 +30,23 @@ public class Activity
 
     public void DisplayEndingMessage()
     {
+        Console.WriteLine();
         Console.WriteLine("Well done!");
         ShowSpinner(3);
-        Console.WriteLine($"You completed {_duration} seconds of the activity.");
-        ShowSpinner(3);
+        Console.WriteLine();
+        Console.WriteLine($"You completed {_duration} seconds of the {_name}.");
+        ShowSpinner(4);
     }
 
     protected void ShowSpinner(int seconds)
     {
-        for (int i = 0; i < seconds; i++)
+        string[] frames = { "|", "/", "-", "\\" };
+        int total = seconds * 10;
+
+        for (int i = 0; i < total; i++)
         {
-            Console.Write("|");
-            Thread.Sleep(300);
-            Console.Write("\b/");
-            Thread.Sleep(300);
-            Console.Write("\b-");
-            Thread.Sleep(300);
-            Console.Write("\b\\");
-            Thread.Sleep(300);
+            Console.Write(frames[i % 4]);
+            Thread.Sleep(100);
             Console.Write("\b \b");
         }
     }
