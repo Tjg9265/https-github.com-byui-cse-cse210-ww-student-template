@@ -140,7 +140,18 @@ public class GoalManager
         int pointsEarned = _goals[index].RecordEvent();
         _score += pointsEarned;
 
+       // Color and celebration feature (beyond requirements)
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"You earned {pointsEarned} points!");
+
+        if (_goals[index].IsComplete())
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("🎉 Congratulations! You completed this goal!");
+        }
+
+        Console.ResetColor();
+
     }
 
     public void SaveGoals()
